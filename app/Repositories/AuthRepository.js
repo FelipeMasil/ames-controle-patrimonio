@@ -20,36 +20,31 @@ class AuthRepository {
     }
 
 
-    async login(username, password, res) {
+
+
+    async login(username, password) {
         try {
             const query = `SELECT * FROM users WHERE username = ?`;
             const [rows] = await db.query(query, [username]);
-
+    
             if (rows.length === 0) {
-                //return res.status(401).send({ erro: 'Usuário não encontrado' });
-                return res.render('index', { error: 'Usuário não encontrado' });
+                return null; // Usuário não encontrado
             }
-
+    
             const user = rows[0];
             const passwordMatch = await bcrypt.compare(password, user.password);
-
+    
             if (!passwordMatch) {
-                return res.render('index', { error: 'Senha incorreta' });
+                return null; // Senha incorreta
             }
-
-            //res.send({ mensagem: 'Login bem-sucedido' });
-            res.redirect('/home');
-
+    
+            return user; // Retorne o objeto user
         } catch (error) {
             console.error('Erro ao tentar realizar o login:', error);
-            
-            // Envie uma resposta de erro mais detalhada
-            res.status(500).json({
-                mensagem: 'Falha no login',
-                erro: error.message || 'Erro interno do servidor'
-            });
+            throw new Error('Erro interno do servidor'); // Lance um erro que pode ser tratado pelo controlador
         }
     }
+    
 }
 
 export default new AuthRepository();
