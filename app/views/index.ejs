@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/index.css">    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <title>..:: Patrimonio ::..</title>
+</head>
+<body>
+    <div id="formulario">
+        <h1>Ame Sorocaba</h1>
+        <h2>Bem Vindo!</h2>
+        <form action="/loginUsuario" method="POST">
+            <div class="login">
+                <input type="text" name="username" id="username" placeholder="usuário">
+                <input type="password" name="password" id="password" placeholder="Senha">
+                <button type="submit">LOGIN</button>
+            </div>            
+        </form>
+        
+    <% if (typeof error !== 'undefined') { %>
+        <p style="color: red;" id="error-message"><%= error %></p>
+    <% } %>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const errorElement = document.getElementById('error-message');
+            if (errorElement) {
+                setTimeout(() => {
+                window.location.replace("//localhost:3333");
+            }, 3000);
+            }
+        });
+    </script>
+      
+
+</body>
+</html>
